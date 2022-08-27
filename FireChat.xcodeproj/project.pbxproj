@@ -13,6 +13,9 @@
 		080AE6C528BA13BC00D83126 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080AE6C328BA13BC00D83126 /* Main.storyboard */; };
 		080AE6C728BA13BE00D83126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 080AE6C628BA13BE00D83126 /* Assets.xcassets */; };
 		080AE6CA28BA13BE00D83126 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080AE6C828BA13BE00D83126 /* LaunchScreen.storyboard */; };
+		080AE6DE28BA14FC00D83126 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6DD28BA14FC00D83126 /* ConversationsController.swift */; };
+		080AE6E128BA2B2B00D83126 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6E028BA2B2B00D83126 /* LoginController.swift */; };
+		080AE6E328BA2B3700D83126 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6E228BA2B3700D83126 /* RegistrationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		080AE6C628BA13BE00D83126 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		080AE6C928BA13BE00D83126 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		080AE6CB28BA13BE00D83126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		080AE6DD28BA14FC00D83126 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
+		080AE6E028BA2B2B00D83126 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		080AE6E228BA2B3700D83126 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,12 @@
 		080AE6BC28BA13BC00D83126 /* FireChat */ = {
 			isa = PBXGroup;
 			children = (
+				080AE6DC28BA13F800D83126 /* Model */,
+				080AE6DB28BA13F700D83126 /* View */,
+				080AE6DA28BA13F500D83126 /* ViewModel */,
+				080AE6D828BA13EF00D83126 /* Controller */,
+				080AE6D528BA13EA00D83126 /* API */,
+				080AE6D128BA13E000D83126 /* Utilities */,
 				080AE6BD28BA13BC00D83126 /* AppDelegate.swift */,
 				080AE6BF28BA13BC00D83126 /* SceneDelegate.swift */,
 				080AE6C128BA13BC00D83126 /* ViewController.swift */,
@@ -65,6 +77,59 @@
 				080AE6CB28BA13BE00D83126 /* Info.plist */,
 			);
 			path = FireChat;
+			sourceTree = "<group>";
+		};
+		080AE6D128BA13E000D83126 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		080AE6D528BA13EA00D83126 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		080AE6D828BA13EF00D83126 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				080AE6DF28BA2B1B00D83126 /* Authentication */,
+				080AE6DD28BA14FC00D83126 /* ConversationsController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		080AE6DA28BA13F500D83126 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		080AE6DB28BA13F700D83126 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		080AE6DC28BA13F800D83126 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		080AE6DF28BA2B1B00D83126 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				080AE6E028BA2B2B00D83126 /* LoginController.swift */,
+				080AE6E228BA2B3700D83126 /* RegistrationController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +205,10 @@
 			files = (
 				080AE6C228BA13BC00D83126 /* ViewController.swift in Sources */,
 				080AE6BE28BA13BC00D83126 /* AppDelegate.swift in Sources */,
+				080AE6DE28BA14FC00D83126 /* ConversationsController.swift in Sources */,
 				080AE6C028BA13BC00D83126 /* SceneDelegate.swift in Sources */,
+				080AE6E328BA2B3700D83126 /* RegistrationController.swift in Sources */,
+				080AE6E128BA2B2B00D83126 /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
