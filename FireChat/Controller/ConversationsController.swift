@@ -61,9 +61,7 @@ class ConversationsController: UIViewController {
         navigationItem.title = "Messages"
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = true
-        
         navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
-    
     }
 }
 
