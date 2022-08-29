@@ -11,11 +11,17 @@ class RegistrationController: UIViewController {
     
     //MARK: - Properties
     
+    private var viewModel = RegistrationViewModel()
+    
     private lazy var plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(systemName: "plus.circle"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
+        button.imageView?.clipsToBounds = true
+        button.imageView?.contentMode = .scaleAspectFill
+        button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     
@@ -24,7 +30,7 @@ class RegistrationController: UIViewController {
     }()
     
     private lazy var  fullNameContainerView: UIView = {
-        return InputContainerView(image: UIImage(systemName: "person"), textField: fullTextField)
+        return InputContainerView(image: UIImage(systemName: "person"), textField: fullNameTextField)
     }()
     
     private lazy var  usernameContainerView: UIView = {
@@ -36,7 +42,7 @@ class RegistrationController: UIViewController {
     }()
     
     private let emailTextField = CustomTextField(placeHolder: "Email")
-    private let fullTextField = CustomTextField(placeHolder: "Full Name")
+    private let fullNameTextField = CustomTextField(placeHolder: "Full Name")
     private let usernameTextField = CustomTextField(placeHolder: "Username")
     
     private let passwordTextField: CustomTextField = {
@@ -50,7 +56,7 @@ class RegistrationController: UIViewController {
         button.setTitle("Sign Up", for: .normal)
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.backgroundColor = .systemOrange
+        button.backgroundColor = .orange
         button.setTitleColor(.white, for: .normal)
         button.setHeight(height: 50)
         return button
@@ -70,12 +76,28 @@ class RegistrationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureNotificationObservers()
     }
     
     //MARK: - Selectors
     
+    @objc func textDidChange(sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else if sender == passwordTextField {
+            viewModel.password = sender.text
+        } else if sender == fullNameTextField {
+            viewModel.fullName = sender.text
+        } else if sender == usernameTextField {
+            viewModel.username = sender.text
+        }
+        checkFormStatus()
+    }
+    
     @objc func handleSelectPhoto() {
-        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
     }
     
     @objc func handleShowLogin() {
@@ -97,5 +119,37 @@ class RegistrationController: UIViewController {
         stack.anchor(top: plusPhotoButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
         view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+    }
+    
+    func configureNotificationObservers() {
+        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        fullNameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        usernameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+    }
+}
+
+//MARK: - UIImagePickerControllerDelegate
+
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as? UIImage
+        plusPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        plusPhotoButton.layer.borderColor = UIColor.white.cgColor
+        plusPhotoButton.layer.borderWidth = 3.0
+        plusPhotoButton.layer.cornerRadius = plusPhotoButton.frame.height / 2
+        dismiss(animated: true)
+    }
+}
+
+extension RegistrationController: AuthenticationControllerProtocol {
+    func checkFormStatus() {
+        if viewModel.formIsValid {
+            signUpButton.isEnabled = true
+            signUpButton.backgroundColor = .systemOrange
+        } else {
+            signUpButton.isEnabled = false
+            signUpButton.backgroundColor = .orange
+        }
     }
 }
