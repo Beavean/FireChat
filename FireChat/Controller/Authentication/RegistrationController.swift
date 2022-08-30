@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
 
 class RegistrationController: UIViewController {
     
     //MARK: - Properties
     
     private var viewModel = RegistrationViewModel()
+    private var profileImage: UIImage?
     
     private lazy var plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -21,7 +24,6 @@ class RegistrationController: UIViewController {
         button.imageView?.clipsToBounds = true
         button.imageView?.contentMode = .scaleAspectFill
         button.clipsToBounds = true
-        button.isEnabled = false
         return button
     }()
     
@@ -51,7 +53,7 @@ class RegistrationController: UIViewController {
         return textField
     }()
     
-    private let signUpButton: UIButton = {
+    private lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.layer.cornerRadius = 5
@@ -59,6 +61,8 @@ class RegistrationController: UIViewController {
         button.backgroundColor = .orange
         button.setTitleColor(.white, for: .normal)
         button.setHeight(height: 50)
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         return button
     }()
     
@@ -80,6 +84,46 @@ class RegistrationController: UIViewController {
     }
     
     //MARK: - Selectors
+    
+    @objc func handleRegistration() {
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let fullName = fullNameTextField.text,
+              let username = usernameTextField.text?.lowercased(),
+              let profileImage = profileImage,
+              let imageData = profileImage.jpegData(compressionQuality: 0.3)
+        else { return }
+        let filename = NSUUID().uuidString
+        let reference = Storage.storage().reference(withPath: "/profile_images/\(filename)")
+        reference.putData(imageData, metadata: nil) { meta, error in
+            if let error = error {
+                print("Failed to upload image with error: \(error.localizedDescription)")
+                return
+            }
+            reference.downloadURL { (url, error) in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                Auth.auth().createUser(withEmail: email, password: password) { result, error in
+                    if let error = error {
+                        print("Failed to create user with error: \(error.localizedDescription)")
+                        return
+                    }
+                    guard let userId = result?.user.uid else { return }
+                    let  data = ["email": email,
+                                 "fullname": fullName,
+                                 "profileImageUrl": profileImageUrl,
+                                 "uid": userId,
+                                 "username": username] as [String: Any]
+                    Firestore.firestore().collection("users").document(userId).setData(data) { error in
+                        if let error = error {
+                            print("Failed to upload user data with error: \(error.localizedDescription)")
+                            return
+                        }
+                        print("User has been created")
+                    }
+                }
+            }
+        }
+    }
     
     @objc func textDidChange(sender: UITextField) {
         if sender == emailTextField {
@@ -134,6 +178,7 @@ class RegistrationController: UIViewController {
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
+        profileImage = image
         plusPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         plusPhotoButton.layer.borderColor = UIColor.white.cgColor
         plusPhotoButton.layer.borderWidth = 3.0
