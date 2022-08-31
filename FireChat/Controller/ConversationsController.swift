@@ -16,6 +16,16 @@ class ConversationsController: UIViewController {
     
     private let tableView = UITableView()
     
+    private lazy var newMessageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.backgroundColor = .systemOrange
+        button.tintColor = .white
+        button.imageView?.setDimensions(height: 24, width: 24)
+        button.addTarget(self, action: #selector(showNewMessage), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -28,6 +38,13 @@ class ConversationsController: UIViewController {
     
     @objc func showProfile() {
         logout()
+    }
+    
+    @objc func showNewMessage() {
+        let controller = NewMessageController()
+        let navigation = UINavigationController(rootViewController: controller)
+        navigation.modalPresentationStyle = . fullScreen
+        present(navigation, animated: true)
     }
     
     //MARK: - API
@@ -63,10 +80,14 @@ class ConversationsController: UIViewController {
     
     func configureUI() {
         view.backgroundColor = .white
-        configureNavigationBar()
+        configureNavigationBar(withTitle: "Messages")
         configureTableView()
         let image = UIImage(systemName: "person.circle.fill")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showProfile))
+        view.addSubview(newMessageButton)
+        newMessageButton.setDimensions(height: 56, width: 56)
+        newMessageButton.layer.cornerRadius = 28
+        newMessageButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 16, paddingRight: 24)
     }
     
     func configureTableView() {
@@ -78,21 +99,6 @@ class ConversationsController: UIViewController {
         tableView.dataSource = self
         view.addSubview(tableView)
         tableView.frame = view.frame
-    }
-    
-    func configureNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.backgroundColor = .systemOrange
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Messages"
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
     }
 }
 
