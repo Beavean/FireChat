@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 protocol AuthenticationControllerProtocol {
     func checkFormStatus()
@@ -73,7 +74,14 @@ class LoginController: UIViewController {
     //MARK: - Selectors
     
     @objc func handleLogin() {
-        
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        AuthenticationService.shared.logUserIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("Failed to login with error: \(error.localizedDescription)")
+                return
+            }
+            self.dismiss(animated: true)
+        }
     }
     
     @objc func handleShowSignUp() {

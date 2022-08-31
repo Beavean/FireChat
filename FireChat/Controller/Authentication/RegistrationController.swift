@@ -90,38 +90,15 @@ class RegistrationController: UIViewController {
               let password = passwordTextField.text,
               let fullName = fullNameTextField.text,
               let username = usernameTextField.text?.lowercased(),
-              let profileImage = profileImage,
-              let imageData = profileImage.jpegData(compressionQuality: 0.3)
+              let profileImage = profileImage
         else { return }
-        let filename = NSUUID().uuidString
-        let reference = Storage.storage().reference(withPath: "/profile_images/\(filename)")
-        reference.putData(imageData, metadata: nil) { meta, error in
+        let credentials = RegistrationCredentials(email: email, password: password, fullName: fullName, username: username, profileImage: profileImage)
+        AuthenticationService.shared.createUser(credentials: credentials) { error in
             if let error = error {
-                print("Failed to upload image with error: \(error.localizedDescription)")
+                print("Failed to create user with error: \(error.localizedDescription)")
                 return
             }
-            reference.downloadURL { (url, error) in
-                guard let profileImageUrl = url?.absoluteString else { return }
-                Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                    if let error = error {
-                        print("Failed to create user with error: \(error.localizedDescription)")
-                        return
-                    }
-                    guard let userId = result?.user.uid else { return }
-                    let  data = ["email": email,
-                                 "fullname": fullName,
-                                 "profileImageUrl": profileImageUrl,
-                                 "uid": userId,
-                                 "username": username] as [String: Any]
-                    Firestore.firestore().collection("users").document(userId).setData(data) { error in
-                        if let error = error {
-                            print("Failed to upload user data with error: \(error.localizedDescription)")
-                            return
-                        }
-                        print("User has been created")
-                    }
-                }
-            }
+            self.dismiss(animated: true)
         }
     }
     
