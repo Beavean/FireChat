@@ -93,11 +93,13 @@ class RegistrationController: UIViewController {
               let profileImage = profileImage
         else { return }
         let credentials = RegistrationCredentials(email: email, password: password, fullName: fullName, username: username, profileImage: profileImage)
+        showLoader(true, withText: "Signing up")
         AuthenticationService.shared.createUser(credentials: credentials) { error in
             if let error = error {
                 print("Failed to create user with error: \(error.localizedDescription)")
                 return
             }
+            self.showLoader(false)
             self.dismiss(animated: true)
         }
     }
@@ -125,6 +127,18 @@ class RegistrationController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func keyboardWillShow() {
+        if view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 88
+        }
+    }
+    
+    @objc func keyboardWillHide() {
+        if view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     //MARK: - Helpers
     
     func configureUI() {
@@ -147,6 +161,8 @@ class RegistrationController: UIViewController {
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         fullNameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 

@@ -31,14 +31,14 @@ struct AuthenticationService {
         let reference = Storage.storage().reference(withPath: "/profile_images/\(filename)")
         reference.putData(imageData, metadata: nil) { meta, error in
             if let error = error {
-                print("Failed to upload image with error: \(error.localizedDescription)")
+                completion!(error)
                 return
             }
             reference.downloadURL { (url, error) in
                 guard let profileImageUrl = url?.absoluteString else { return }
                 Auth.auth().createUser(withEmail: credentials.email, password: credentials.password) { result, error in
                     if let error = error {
-                        print("Failed to create user with error: \(error.localizedDescription)")
+                        completion!(error)
                         return
                     }
                     guard let userId = result?.user.uid else { return }
