@@ -22,8 +22,10 @@
 		080AE6ED28BCD3C500D83126 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6EC28BCD3C500D83126 /* LoginViewModel.swift */; };
 		080AE6EF28BCDB6A00D83126 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6EE28BCDB6A00D83126 /* RegistrationViewModel.swift */; };
 		0815D7B528BE54760014916A /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7B428BE54760014916A /* AuthenticationService.swift */; };
-		0815D7B728BF5D7E0014916A /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7B628BF5D7E0014916A /* NewMessageController.swift */; };
 		0815D7B928BF63730014916A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7B828BF63720014916A /* UserCell.swift */; };
+		0815D7BB28BF68CF0014916A /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7BA28BF68CF0014916A /* NewMessageController.swift */; };
+		0815D7BD28BF696C0014916A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7BC28BF696C0014916A /* User.swift */; };
+		0815D7BF28BF69DA0014916A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7BE28BF69DA0014916A /* Service.swift */; };
 		08A7BEA728BE07960039EBC7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A7BEA628BE07960039EBC7 /* GoogleService-Info.plist */; };
 		0D9495DD278D92591E33AB00 /* Pods_FireChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6543A295B3CC06AB5C99E98 /* Pods_FireChat.framework */; };
 /* End PBXBuildFile section */
@@ -46,8 +48,10 @@
 		080AE6EC28BCD3C500D83126 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		080AE6EE28BCDB6A00D83126 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		0815D7B428BE54760014916A /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
-		0815D7B628BF5D7E0014916A /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		0815D7B828BF63720014916A /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		0815D7BA28BF68CF0014916A /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		0815D7BC28BF696C0014916A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0815D7BE28BF69DA0014916A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		08A7BEA628BE07960039EBC7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FFC5404255CFBBE1246AA16 /* Pods-FireChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireChat.debug.xcconfig"; path = "Target Support Files/Pods-FireChat/Pods-FireChat.debug.xcconfig"; sourceTree = "<group>"; };
 		BCFA2BCBCBDD3324181B9006 /* Pods-FireChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireChat.release.xcconfig"; path = "Target Support Files/Pods-FireChat/Pods-FireChat.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				0815D7B428BE54760014916A /* AuthenticationService.swift */,
+				0815D7BE28BF69DA0014916A /* Service.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -126,7 +131,7 @@
 			children = (
 				080AE6DF28BA2B1B00D83126 /* Authentication */,
 				080AE6DD28BA14FC00D83126 /* ConversationsController.swift */,
-				0815D7B628BF5D7E0014916A /* NewMessageController.swift */,
+				0815D7BA28BF68CF0014916A /* NewMessageController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 		080AE6DC28BA13F800D83126 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0815D7BC28BF696C0014916A /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -303,10 +309,12 @@
 				080AE6EF28BCDB6A00D83126 /* RegistrationViewModel.swift in Sources */,
 				080AE6E928BCBD6D00D83126 /* InputContainerView.swift in Sources */,
 				0815D7B528BE54760014916A /* AuthenticationService.swift in Sources */,
+				0815D7BB28BF68CF0014916A /* NewMessageController.swift in Sources */,
 				080AE6BE28BA13BC00D83126 /* AppDelegate.swift in Sources */,
 				080AE6DE28BA14FC00D83126 /* ConversationsController.swift in Sources */,
 				0815D7B928BF63730014916A /* UserCell.swift in Sources */,
-				0815D7B728BF5D7E0014916A /* NewMessageController.swift in Sources */,
+				0815D7BD28BF696C0014916A /* User.swift in Sources */,
+				0815D7BF28BF69DA0014916A /* Service.swift in Sources */,
 				080AE6C028BA13BC00D83126 /* SceneDelegate.swift in Sources */,
 				080AE6E328BA2B3700D83126 /* RegistrationController.swift in Sources */,
 				080AE6E128BA2B2B00D83126 /* LoginController.swift in Sources */,
