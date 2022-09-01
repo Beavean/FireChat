@@ -27,7 +27,6 @@ class UserCell: UITableViewCell {
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "Reach"
         return label
     }()
     
@@ -35,7 +34,6 @@ class UserCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
-        label.text = "Halo"
         return label
     }()
     
