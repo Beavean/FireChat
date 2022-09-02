@@ -44,7 +44,10 @@ class ConversationsController: UIViewController {
     //MARK: - Selectors
     
     @objc func showProfile() {
-        logout()
+        let controller = ProfileController()
+        let navigation = UINavigationController(rootViewController: controller)
+        navigation.modalPresentationStyle = .fullScreen
+        present(navigation, animated: true)
     }
     
     @objc func showNewMessage() {
