@@ -10,5 +10,6 @@ import Firebase
 struct K {
     
     static let collectionMessages = Firestore.firestore().collection("messages")
+    static let collectionUsers = Firestore.firestore().collection("users")
 }
 
