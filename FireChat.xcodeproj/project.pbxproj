@@ -37,6 +37,8 @@
 		0815D7D328C21E710014916A /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7D228C21E710014916A /* ConversationViewModel.swift */; };
 		0815D7D528C231340014916A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7D428C231340014916A /* ProfileController.swift */; };
 		0815D7D728C232550014916A /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7D628C232550014916A /* ProfileHeader.swift */; };
+		0815D7D928C241540014916A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7D828C241540014916A /* ProfileViewModel.swift */; };
+		0815D7DB28C242860014916A /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0815D7DA28C242860014916A /* ProfileCell.swift */; };
 		08A7BEA728BE07960039EBC7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08A7BEA628BE07960039EBC7 /* GoogleService-Info.plist */; };
 		0D9495DD278D92591E33AB00 /* Pods_FireChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6543A295B3CC06AB5C99E98 /* Pods_FireChat.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +76,8 @@
 		0815D7D228C21E710014916A /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
 		0815D7D428C231340014916A /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		0815D7D628C232550014916A /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		0815D7D828C241540014916A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		0815D7DA28C242860014916A /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		08A7BEA628BE07960039EBC7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FFC5404255CFBBE1246AA16 /* Pods-FireChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireChat.debug.xcconfig"; path = "Target Support Files/Pods-FireChat/Pods-FireChat.debug.xcconfig"; sourceTree = "<group>"; };
 		BCFA2BCBCBDD3324181B9006 /* Pods-FireChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireChat.release.xcconfig"; path = "Target Support Files/Pods-FireChat/Pods-FireChat.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				080AE6EE28BCDB6A00D83126 /* RegistrationViewModel.swift */,
 				0815D7D228C21E710014916A /* ConversationViewModel.swift */,
 				0815D7CA28C0C34A0014916A /* MessageViewModel.swift */,
+				0815D7D828C241540014916A /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 				0815D7C228C0AE000014916A /* CustomInputView.swift */,
 				0815D7D028C21BAE0014916A /* ConversationCell.swift */,
 				0815D7D628C232550014916A /* ProfileHeader.swift */,
+				0815D7DA28C242860014916A /* ProfileCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 				080AE6EF28BCDB6A00D83126 /* RegistrationViewModel.swift in Sources */,
 				080AE6E928BCBD6D00D83126 /* InputContainerView.swift in Sources */,
 				0815D7D528C231340014916A /* ProfileController.swift in Sources */,
+				0815D7D928C241540014916A /* ProfileViewModel.swift in Sources */,
 				0815D7D328C21E710014916A /* ConversationViewModel.swift in Sources */,
 				0815D7B528BE54760014916A /* AuthenticationService.swift in Sources */,
 				0815D7CB28C0C34A0014916A /* MessageViewModel.swift in Sources */,
@@ -364,6 +371,7 @@
 				0815D7C928C0C0E90014916A /* Message.swift in Sources */,
 				080AE6ED28BCD3C500D83126 /* LoginViewModel.swift in Sources */,
 				080AE6EB28BCC05D00D83126 /* CustomTextField.swift in Sources */,
+				0815D7DB28C242860014916A /* ProfileCell.swift in Sources */,
 				0815D7D728C232550014916A /* ProfileHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
