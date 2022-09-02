@@ -17,7 +17,7 @@ class CustomInputView: UIView {
     
     weak var delegate: CustomInputViewDelegate?
     
-    let messageInputTextView: UITextView = {
+    private let messageInputTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.isScrollEnabled = false
@@ -79,5 +79,12 @@ class CustomInputView: UIView {
     @objc func handleSendMessage() {
         guard let message = messageInputTextView.text else { return }
         delegate?.inputView(self, wantsToSend: message)
+    }
+    
+    //MARK: - Helpers
+    
+    func clearMessageText() {
+        messageInputTextView.text = nil
+        placeHolderLabel.isHidden = false
     }
 }
