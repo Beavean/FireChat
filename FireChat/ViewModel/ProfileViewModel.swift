@@ -8,13 +8,15 @@
 import Foundation
 
 enum ProfileViewModel: Int, CaseIterable {
-    case accountInfo = 0
-    case accountSettings = 1
+    case accountInfo
+    case accountSettings
+    case savedMessages
     
     var description: String {
         switch self {
         case .accountInfo: return "Account Info"
         case .accountSettings: return "Settings"
+        case .savedMessages: return "Saved Messages"
         }
     }
     
@@ -22,6 +24,7 @@ enum ProfileViewModel: Int, CaseIterable {
         switch self {
         case .accountInfo: return "person.circle"
         case .accountSettings: return "gear"
+        case .savedMessages: return "envelope"
         }
     }
 }

@@ -10,6 +10,10 @@ import Firebase
 
 private let reuseIdentifier = "ProfileCell"
 
+protocol ProfileControllerDelegate: AnyObject {
+    func handleLogout()
+}
+
 class ProfileController: UITableViewController {
     
     //MARK: - Properties
@@ -18,6 +22,8 @@ class ProfileController: UITableViewController {
         didSet { headerView.user = user }
     }
     private lazy var headerView = ProfileHeader(frame: .init(x: 0, y: 0, width: view.frame.width, height: 380))
+    private let footerView = ProfileFooter()
+    weak var delegate: ProfileControllerDelegate?
     
     //MARK: - Lifecycle
     
@@ -53,14 +59,19 @@ class ProfileController: UITableViewController {
         tableView.tableHeaderView = headerView
         headerView.delegate = self
         tableView.register(ProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.tableFooterView = UIView()
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.rowHeight = 64
         tableView.backgroundColor = .systemGroupedBackground
+        footerView.frame = .init(x: 0, y: 0, width: view.frame.width, height: 100)
+        tableView.tableFooterView = footerView
+        footerView.delegate = self
     }
 }
 
+//MARK: - UITableViewDataSource
+
 extension ProfileController {
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ProfileViewModel.allCases.count
     }
@@ -74,14 +85,42 @@ extension ProfileController {
     }
 }
 
+//MARK: - UITableViewDelegate
+
 extension ProfileController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //        guard let viewModel = ProfileViewModel(rawValue: indexPath.row) else { return }
+        //        switch viewModel {
+        //        case .accountInfo:
+        //        case .accountSettings:
+        //        case .savedMessages:
+        //        }
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
 }
 
+//MARK: - ProfileHeaderDelegate
+
 extension ProfileController: ProfileHeaderDelegate {
     func dismissController() {
         dismiss(animated: true)
+    }
+}
+
+//MARK: - ProfileFooterDelegate
+
+extension ProfileController: ProfileFooterDelegate {
+    func handleLogout() {
+        let alert = UIAlertController(title: nil, message: "Are you sure you want to logout?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
+            self.dismiss(animated: true)
+            self.delegate?.handleLogout()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 }

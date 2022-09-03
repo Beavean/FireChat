@@ -45,6 +45,7 @@ class ConversationsController: UIViewController {
     
     @objc func showProfile() {
         let controller = ProfileController(style: .insetGrouped)
+        controller.delegate = self
         let navigation = UINavigationController(rootViewController: controller)
         navigation.modalPresentationStyle = .fullScreen
         present(navigation, animated: true)
@@ -156,3 +157,8 @@ extension ConversationsController: NewMessageControllerDelegate {
     }
 }
 
+extension ConversationsController: ProfileControllerDelegate {
+    func handleLogout() {
+        logout()
+    }
+}
