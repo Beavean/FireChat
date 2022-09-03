@@ -120,6 +120,7 @@ extension ProfileController: ProfileFooterDelegate {
             self.dismiss(animated: true)
             self.delegate?.handleLogout()
         }))
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
