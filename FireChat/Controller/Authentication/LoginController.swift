@@ -13,11 +13,17 @@ protocol AuthenticationControllerProtocol {
     func checkFormStatus()
 }
 
+protocol AuthenticationDelegate: AnyObject {
+    func authenticationComplete()
+}
+
 class LoginController: UIViewController {
     
     //MARK: - Properties
     
     private var viewModel = LoginViewModel()
+    
+    weak var delegate: AuthenticationDelegate?
     
     private let iconImage: UIImageView = {
         let imageView = UIImageView()
@@ -70,6 +76,7 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        addKeyboardDismissal()
     }
     
     //MARK: - Selectors
@@ -80,17 +87,20 @@ class LoginController: UIViewController {
         showLoader(true, withText: "Logging in")
         AuthenticationService.shared.logUserIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("Failed to login with error: \(error.localizedDescription)")
+                self.showLoader(false)
+                self.showError(error.localizedDescription)
                 hud.dismiss()
                 return
             }
             self.showLoader(false)
             self.dismiss(animated: true)
+            self.delegate?.authenticationComplete()
         }
     }
     
     @objc func handleShowSignUp() {
         let controller = RegistrationController()
+        controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -122,6 +132,11 @@ class LoginController: UIViewController {
         signUpButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+    }
+    
+    func addKeyboardDismissal() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 }
 

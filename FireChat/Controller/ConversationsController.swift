@@ -8,14 +8,13 @@
 import UIKit
 import Firebase
 
-private let reuseIdentifier = "ConversationCell"
-
 class ConversationsController: UIViewController {
     
     //MARK: - Properties
     
     private let tableView = UITableView()
     private var conversations = [Conversation]()
+    private var conversationsDictionary = [String: Conversation]()
     
     private lazy var newMessageButton: UIButton = {
         let button = UIButton(type: .system)
@@ -62,8 +61,14 @@ class ConversationsController: UIViewController {
     //MARK: - API
     
     func fetchConversations() {
+        showLoader(true)
         Service.fetchConversations { conversations in
-            self.conversations = conversations
+            conversations.forEach { conversation in
+                let message = conversation.message
+                self.conversationsDictionary[message.chatPartnerId] = conversation
+            }
+            self.showLoader(false)
+            self.conversations = Array(self.conversationsDictionary.values)
             self.tableView.reloadData()
         }
     }
@@ -71,8 +76,6 @@ class ConversationsController: UIViewController {
     func authenticateUser() {
         if Auth.auth().currentUser?.uid == nil {
             presentLoginScreen()
-        } else {
-            print("User is logged in.")
         }
     }
     
@@ -90,6 +93,7 @@ class ConversationsController: UIViewController {
     func presentLoginScreen() {
         DispatchQueue.main.async {
             let controller = LoginController()
+            controller.delegate = self
             let navigation = UINavigationController(rootViewController: controller)
             navigation.modalPresentationStyle = .fullScreen
             self.present(navigation, animated: true)
@@ -111,7 +115,7 @@ class ConversationsController: UIViewController {
     func configureTableView() {
         tableView.backgroundColor = .white
         tableView.rowHeight = 80
-        tableView.register(ConversationCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(ConversationCell.self, forCellReuseIdentifier: K.conversationCellReuseId)
         tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -133,7 +137,7 @@ extension ConversationsController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ConversationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.conversationCellReuseId, for: indexPath) as! ConversationCell
         cell.conversation = conversations[indexPath.row]
         return cell
     }
@@ -157,8 +161,18 @@ extension ConversationsController: NewMessageControllerDelegate {
     }
 }
 
+//MARK: - ProfileControllerDelegate
+
 extension ConversationsController: ProfileControllerDelegate {
     func handleLogout() {
         logout()
+    }
+}
+
+extension ConversationsController: AuthenticationDelegate {
+    func authenticationComplete() {
+        dismiss(animated: true)
+        configureUI()
+        fetchConversations()
     }
 }

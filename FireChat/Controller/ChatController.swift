@@ -7,8 +7,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "MessageCell"
-
 class ChatController: UICollectionViewController {
     
     //MARK: - Properties
@@ -51,7 +49,9 @@ class ChatController: UICollectionViewController {
     //MARK: - API
     
     func fetchMessages() {
+        showLoader(true)
         Service.fetchMessages(forUser: user) { messages in
+            self.showLoader(false)
             self.messages = messages
             self.collectionView.reloadData()
             self.collectionView.scrollToItem(at: [0, self.messages.count - 1], at: .bottom, animated: true)
@@ -63,7 +63,7 @@ class ChatController: UICollectionViewController {
     func configureUI() {
         collectionView.backgroundColor = .white
         configureNavigationBar(withTitle: user.username, prefersLargeTitles: false)
-        collectionView.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(MessageCell.self, forCellWithReuseIdentifier: K.messageCellReuseId)
         collectionView.alwaysBounceVertical = true
         collectionView.keyboardDismissMode = .onDrag
     }
@@ -75,7 +75,7 @@ extension ChatController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.messageCellReuseId, for: indexPath) as! MessageCell
         cell.message = messages[indexPath.row]
         cell.message?.user = user
         return cell

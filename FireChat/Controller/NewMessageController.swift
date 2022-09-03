@@ -7,8 +7,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "UserCell"
-
 protocol NewMessageControllerDelegate: AnyObject {
     func controller(_ controller: NewMessageController, wantsToStartChatWith user: User)
 }
@@ -43,7 +41,9 @@ class NewMessageController: UITableViewController {
     //MARK: - API
     
     func fetchUsers() {
+        showLoader(true)
         Service.fetchUsers { users in
+            self.showLoader(false)
             self.users = users
             self.tableView.reloadData()
         }
@@ -55,7 +55,7 @@ class NewMessageController: UITableViewController {
         configureNavigationBar(withTitle: "New message", prefersLargeTitles: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleDismissal))
         tableView.tableFooterView = UIView()
-        tableView.register(UserCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(UserCell.self, forCellReuseIdentifier: K.userCellReuseId)
         tableView.rowHeight = 80
     }
     
@@ -80,7 +80,7 @@ extension NewMessageController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! UserCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.userCellReuseId, for: indexPath) as! UserCell
         cell.user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
         return cell
     }

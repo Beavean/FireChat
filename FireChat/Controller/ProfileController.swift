@@ -8,8 +8,6 @@
 import UIKit
 import Firebase
 
-private let reuseIdentifier = "ProfileCell"
-
 protocol ProfileControllerDelegate: AnyObject {
     func handleLogout()
 }
@@ -46,7 +44,9 @@ class ProfileController: UITableViewController {
     
     func fetchUser() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
+        showLoader(true)
         Service.fetchUser(withUserId: userId) { user in
+            self.showLoader(false)
             self.user = user
         }
     }
@@ -58,7 +58,7 @@ class ProfileController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.tableHeaderView = headerView
         headerView.delegate = self
-        tableView.register(ProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(ProfileCell.self, forCellReuseIdentifier: K.profileCellReuseId)
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.rowHeight = 64
         tableView.backgroundColor = .systemGroupedBackground
@@ -77,7 +77,7 @@ extension ProfileController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ProfileCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.profileCellReuseId, for: indexPath) as! ProfileCell
         let viewModel = ProfileViewModel(rawValue: indexPath.row)
         cell.viewModel = viewModel
         cell.accessoryType = .disclosureIndicator

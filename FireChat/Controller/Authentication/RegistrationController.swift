@@ -16,6 +16,8 @@ class RegistrationController: UIViewController {
     private var viewModel = RegistrationViewModel()
     private var profileImage: UIImage?
     
+    weak var delegate: AuthenticationDelegate?
+    
     private lazy var plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setBackgroundImage(UIImage(systemName: "plus.circle"), for: .normal)
@@ -81,6 +83,7 @@ class RegistrationController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureNotificationObservers()
+        addKeyboardDismissal()
     }
     
     //MARK: - Selectors
@@ -96,11 +99,12 @@ class RegistrationController: UIViewController {
         showLoader(true, withText: "Signing up")
         AuthenticationService.shared.createUser(credentials: credentials) { error in
             if let error = error {
-                print("Failed to create user with error: \(error.localizedDescription)")
+                self.showLoader(false)
+                self.showError(error.localizedDescription)
                 return
             }
             self.showLoader(false)
-            self.dismiss(animated: true)
+            self.delegate?.authenticationComplete()
         }
     }
     
@@ -163,6 +167,11 @@ class RegistrationController: UIViewController {
         usernameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func addKeyboardDismissal() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 }
 

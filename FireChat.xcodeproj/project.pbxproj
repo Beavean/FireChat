@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		080AE6BE28BA13BC00D83126 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6BD28BA13BC00D83126 /* AppDelegate.swift */; };
 		080AE6C028BA13BC00D83126 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6BF28BA13BC00D83126 /* SceneDelegate.swift */; };
-		080AE6C228BA13BC00D83126 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6C128BA13BC00D83126 /* ViewController.swift */; };
-		080AE6C528BA13BC00D83126 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080AE6C328BA13BC00D83126 /* Main.storyboard */; };
 		080AE6C728BA13BE00D83126 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 080AE6C628BA13BE00D83126 /* Assets.xcassets */; };
 		080AE6CA28BA13BE00D83126 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080AE6C828BA13BE00D83126 /* LaunchScreen.storyboard */; };
 		080AE6DE28BA14FC00D83126 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080AE6DD28BA14FC00D83126 /* ConversationsController.swift */; };
@@ -48,8 +46,6 @@
 		080AE6BA28BA13BC00D83126 /* FireChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		080AE6BD28BA13BC00D83126 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		080AE6BF28BA13BC00D83126 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		080AE6C128BA13BC00D83126 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		080AE6C428BA13BC00D83126 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		080AE6C628BA13BE00D83126 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		080AE6C928BA13BE00D83126 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		080AE6CB28BA13BE00D83126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,16 +115,14 @@
 		080AE6BC28BA13BC00D83126 /* FireChat */ = {
 			isa = PBXGroup;
 			children = (
+				080AE6BD28BA13BC00D83126 /* AppDelegate.swift */,
+				080AE6BF28BA13BC00D83126 /* SceneDelegate.swift */,
 				080AE6DC28BA13F800D83126 /* Model */,
 				080AE6DB28BA13F700D83126 /* View */,
 				080AE6DA28BA13F500D83126 /* ViewModel */,
 				080AE6D828BA13EF00D83126 /* Controller */,
 				080AE6D528BA13EA00D83126 /* API */,
 				080AE6D128BA13E000D83126 /* Utilities */,
-				080AE6BD28BA13BC00D83126 /* AppDelegate.swift */,
-				080AE6BF28BA13BC00D83126 /* SceneDelegate.swift */,
-				080AE6C128BA13BC00D83126 /* ViewController.swift */,
-				080AE6C328BA13BC00D83126 /* Main.storyboard */,
 				080AE6C628BA13BE00D83126 /* Assets.xcassets */,
 				080AE6C828BA13BE00D83126 /* LaunchScreen.storyboard */,
 				080AE6CB28BA13BE00D83126 /* Info.plist */,
@@ -294,7 +288,6 @@
 				080AE6CA28BA13BE00D83126 /* LaunchScreen.storyboard in Resources */,
 				08A7BEA728BE07960039EBC7 /* GoogleService-Info.plist in Resources */,
 				080AE6C728BA13BE00D83126 /* Assets.xcassets in Resources */,
-				080AE6C528BA13BC00D83126 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,7 +340,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				080AE6C228BA13BC00D83126 /* ViewController.swift in Sources */,
 				0815D7CD28C1FE390014916A /* Constants.swift in Sources */,
 				0815D7CF28C2196F0014916A /* Conversation.swift in Sources */,
 				080AE6EF28BCDB6A00D83126 /* RegistrationViewModel.swift in Sources */,
@@ -383,14 +375,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		080AE6C328BA13BC00D83126 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				080AE6C428BA13BC00D83126 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		080AE6C828BA13BE00D83126 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -530,9 +514,9 @@
 				INFOPLIST_FILE = FireChat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -560,9 +544,9 @@
 				INFOPLIST_FILE = FireChat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
